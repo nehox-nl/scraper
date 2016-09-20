@@ -16,7 +16,7 @@ foreach($html1->find('div[class="subsection"]') as $element)
 // Find the DIV with the ID leftPanel || Total Unique Users ||
 foreach($html2->find('span[id=virtualserver_client_connections]') as $element)
 		echo $element . "test1<br>";
-		//array_push($uniqueLastWeek,$element);
+		//array_push($ar_uniqueUsersLastWeek,$element);
 // Find the DIV with the ID leftPanel || Total Channels ||
 foreach($html2->find('span[id=virtualserver_channelsonline]') as $element)
 		echo $element->span . "test2<br>";
@@ -27,21 +27,18 @@ foreach($html2->find('span') as $element)
 // Filter everything except the numbers for Unique Users Last Week
 	$uniqueUsersLastWeek = preg_replace("/[^0-9]+/", "", $ar_uniqueUsersLastWeek[0]);
 // Filter everything except the numbers for Unique Users Last Week
-	$uniqueUsersStr = "Unique total users: 2134"; //dummy value
-	$uniqueUsersInt = preg_replace("/[^0-9.]+/", "", $uniqueUsersStr);
+	$uniqueUsers = preg_replace("/[^0-9.]+/", "", "Unique total users: 2134"); // Dummy value
 // Filter everything except the numbers for Unique Users Last Week
-	$channelsStr = "total channels: 117"; //dummy value
-	$channelsInt = preg_replace("/[^0-9]+/", "", $channelsStr);
+	$channels = preg_replace("/[^0-9]+/", "", "total channels: 117"); // Dummy value
 // Filter everything except the numbers for Unique Users Last Week
 	$uptime = preg_replace("/[^0-9.]+/", "", $ar_uptime[21]);
 
 // Write data to CSV (.txt) file
 $dataFile = fopen("output/data.txt", "w") or die("Unable to open file!");
 	$txt =	$uniqueUsersLastWeek . "," . 
-			$uniqueUsersInt . ",". 
-			$channelsInt . "," . 
+			$uniqueUsers . ",". 
+			$channels . "," . 
 			$uptime;
-	
 	fwrite($dataFile, $txt);
 fclose($dataFile); 
 
@@ -50,11 +47,9 @@ echo("Data written to file.");
 echo("<br><br>");
 echo("Unique users last week: <b>" 	. $uniqueUsersLastWeek . "</b>");
 echo("<br>");
-echo("Unique users total: <b>" 		. $uniqueUsersInt . "</b>");
+echo("Unique users total: <b>" 		. $uniqueUsers . "</b>");
 echo("<br>");
-echo("Total channels: <b>" 			. $channelsInt . "</b>");
+echo("Total channels: <b>" 			. $channels . "</b>");
 echo("<br>");
 echo("Uptime last week: <b>" 		. $uptime . "% </b>");
-
-
 ?>
